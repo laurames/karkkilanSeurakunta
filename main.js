@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-  var year = (new Date).getFullYear();
-  $(".year").append(year);
-
+  //calling the first function for fetching event data:
+  weeksEvents();
 });
