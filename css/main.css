@@ -2,17 +2,17 @@
 gray = #5D5A57;
 pink = #D18091;
 red = #A60427;
-light gray = #9F9D9C;
+light gray = #eaeaea;
 white = #FFFFFF;
 */
 
 /* Table of contents:
-1. Basic Structure
+1. Event Structure
 2.
 
 */
 
-/* Basic Structure */
-body{
-
+/* Event Structure */
+.event{
+  background-color: #eaeaea;
 }
