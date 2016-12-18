@@ -47,6 +47,7 @@ function weeksEvents(){
       startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
       endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
     }
+    console.log('startOfWeek: '+startOfWeek+' endOfWeek: ' + endOfWeek);
     buildQueryString(startOfWeek, endOfWeek);
   }
 
@@ -69,6 +70,7 @@ function weeksEvents(){
           for(i=0; i<dataLenght; i++){
             var eventData = filterData(resultData.results[i]);
             $('#events').append(eventData);
+            cleanHTML();
           }
         }else {
           var errormsg = '<p class="error">Error: could not load the page.</p>';
@@ -89,6 +91,10 @@ function weeksEvents(){
     //place the root path into the string so that we have the images to display
     var output = [data.slice(0, indexOfImage), rootUrl, data.slice(indexOfImage)].join('');
     return output;
+  }
+
+  function cleanHTML(){
+    $(".event-item-list a:first-child").remove();
   }
 }
 /*
