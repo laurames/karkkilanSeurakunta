@@ -14,50 +14,83 @@ white = #FFFFFF;
 */
 
 /* Basic */
+html{
+  background-color: #a4092a;
+}
 header{
-  -moz-box-shadow: 0 20px 30px rgba(164, 9, 42, 0.4);
-  -webkit-box-shadow: 0 20px 30px rgba(164, 9, 42, 0.4);
-  box-shadow: 0 20px 30px rgba(164, 9, 42, 0.4);
-  /*box-shadow: 0 10px 20px -2px gray;*/
   z-index: 2;
-  background-color: rgb(164, 9, 42);
+  background-color: white;
+  padding: 20px 0;
+}
+.logo{
+  vertical-align: middle;
+}
+.logo img{
+  width: 100%;
+  height: 100%;
+}
+footer{
+  display: none;
 }
 
 /* Event Structure */
-#test{
-  background-color: yellow;
-}
 #eventsHidden{
   display: none;
 }
 .event{
+  -webkit-box-shadow: 0px -10px 25px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px -10px 25px -10px rgba(0,0,0,0.75);
+  box-shadow: 0px -10px 25px -10px rgba(0,0,0,0.75);
   z-index: 1;
+  color: white;
+  background-color: #a4092a;
+}
+.row-centered{
+  text-align:center;
+}
+.col-centered {
+  display:inline-block;
+  float:none;
+  /* reset the text-align */
+  text-align:left;
+  /* inline-block space fix */
+  margin-right:-4px;
+}
+.media{
+  margin: 15px !important;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  -webkit-box-shadow: 5px 5px 22px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 22px 1px rgba(0,0,0,0.75);
+  box-shadow: 5px 5px 22px 1px rgba(0,0,0,0.75);
 }
 
 /* Calendar */
 .currentmonth {
-  color: white;
+  color: black;
   text-align: center;
 }
 .weekdays{
-  color: white;
+  color: black;
 }
 .currentday {
-  border: 1px solid lightgray;
-  color: black;
-  background-color: white;
+  border: 1px solid #a4092a;
+  color: white;
+  background-color: #a4092a;
   text-align: center;
 }
 
 table.calendar {
+  width:100%;
   padding:1em 1em 2em 1em;
 }
 table.calendar td, table.calendar th {
   text-align: center;
-  padding:0.5em;
+  padding:0.1em 0.5em;
 }
 table.calendar {
-  display:inline-block;
-  *display:inline; zoom:1;
+  /*display:inline-block;
+  *display:inline; zoom:1;*/
   vertical-align:top;
 }

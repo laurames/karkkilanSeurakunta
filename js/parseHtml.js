@@ -69,7 +69,6 @@ function weeksEvents(){
         if(dataLenght != 0){
           for(i=0; i<dataLenght; i++){
             var eventData = filterData(resultData.results[i]);
-            $('#test').append(eventData);
             $('#eventsHidden').append(eventData);
             cleanHTML();
           }
@@ -86,29 +85,33 @@ function weeksEvents(){
   function filterData(data){
     //filter away the sharing links
     data = data.replace(/<div class="share"[^>]*>[\S\s]*?<\/div>/,'');
-    /*var numberOfString = (data.match(/seurakunta-theme/g) || []).length;
+    data = data.replace(/<img[^>]+src="([^">]+)/g,'')
+
+    /*var numberOfString = (data.match(/\/seurakunta-theme/g) || []).length;
+    console.log('number of strings: ' + numberOfString);
     for(i = 1; i <= numberOfString; i++){
       var char = '/seurakunta-theme';
       var string = data;
       function nth_occurrence (string, char, i) {
-          var first_index = string.indexOf(char);
-          var length_up_to_first_index = first_index + 1;
+        var first_index = string.indexOf(char);
+        var length_up_to_first_index = first_index + 1;
 
-          if (nth == 1) {
-              return first_index;
+        if (nth == 1) {
+          return first_index;
+        } else {
+          var string_after_first_occurrence = string.slice(length_up_to_first_index);
+          var next_occurrence = nth_occurrence(string_after_first_occurrence, char, nth - 1);
+
+          if (next_occurrence === -1) {
+            return -1;
           } else {
-              var string_after_first_occurrence = string.slice(length_up_to_first_index);
-              var next_occurrence = nth_occurrence(string_after_first_occurrence, char, nth - 1);
-
-              if (next_occurrence === -1) {
-                  return -1;
-              } else {
-                  return length_up_to_first_index + next_occurrence;
-              }
+            return length_up_to_first_index + next_occurrence;
           }
+        }
       }
-
       var rootUrl = "http://www.karkkilanseurakunta.fi";
+      var pictureSrc = rootUrl+data.slice(nth_occurrence(i),data.indexOf("-small.png"));
+      console.log(pictureSrc);
 
     }*/
     return data;
@@ -125,7 +128,7 @@ function weeksEvents(){
       var eventDescription = $('.description').detach().html();
       var eventLocation = $('.event-location').detach().html();
       if(eventName != undefined){
-        $('#events').append('<div class="singleEvent media">'+ '<div class="media-left media-middle"><a href="#"><img class="media-object" src="" alt=""></a></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime">' + eventTime + '</span></p><p class="eventDescription">Kuvaus: ' + eventDescription + '</p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
+        $('#events').append('<div class="singleEvent media col-md-3 col-centered">'+ '<div class="media-left media-middle"><a href="#"><img class="media-object" src="" alt=""></a></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime">' + eventTime + '</span></p><p class="eventDescription">Kuvaus: ' + eventDescription + '</p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
       }
     });
   }
