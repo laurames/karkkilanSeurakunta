@@ -23,7 +23,6 @@ header{
   padding: 20px 0;
 }
 .logo{
-  vertical-align: middle;
 }
 .logo img{
   width: 100%;
@@ -64,6 +63,9 @@ footer{
   -webkit-box-shadow: 5px 5px 22px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 5px 5px 22px 1px rgba(0,0,0,0.75);
   box-shadow: 5px 5px 22px 1px rgba(0,0,0,0.75);
+}
+.media-object{
+  max-width: 8em;
 }
 
 /* Calendar */

@@ -128,7 +128,7 @@ function weeksEvents(){
       var eventDescription = $('.description').detach().html();
       var eventLocation = $('.event-location').detach().html();
       if(eventName != undefined){
-        $('#events').append('<div class="singleEvent media col-md-3 col-centered">'+ '<div class="media-left media-middle"><a href="#"><img class="media-object" src="" alt=""></a></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime">' + eventTime + '</span></p><p class="eventDescription">Kuvaus: ' + eventDescription + '</p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
+        $('#events').append('<div class="singleEvent media col-md-4 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="images/text.svg" alt=""></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime">' + eventTime + '</span></p><p class="eventDescription">Kuvaus: ' + eventDescription + '</p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
       }
     });
   }
