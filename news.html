@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="refresh" content="43200"> <!--12 hours = 43200-->
-    <title>Karkkilan seurakunnan viikko uutiset</title>
+    <title>Karkkilan seurakunnan viikon tapahtumakalenteri</title>
 
     <!-- Bootstrap -->
     <link href="venders/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,11 +21,13 @@
     <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
     <script src="js/parseHtml.js"></script>
+    <script src="js/calendar.js"></script>
   </head>
   <body>
 
     <header>
       <a href="#" class="navbar-left"><img src="img/logo.svg"></a>
+      <div id="calendar"></div>
   	</header>
     <div id="events" class=".col-md-12 event"></div>
   	<footer>

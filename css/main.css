@@ -8,11 +8,33 @@ white = #FFFFFF;
 
 /* Table of contents:
 1. Event Structure
-2.
+2. Calendar
 
 */
 
 /* Event Structure */
 .event{
   background-color: #eaeaea;
+}
+/* Calendar */
+.currentmonth {
+  color: blue;
+  text-align: center;
+}
+.currentday {
+  border: 1px solid black;
+  color: #00FF00;
+  text-align: center;
+}
+
+table.calendar {
+  margin:1em 1em 2em 1em;
+}
+table.calendar td, table.calendar th {
+  padding:0.5em;
+}
+table.calendar {
+  display:inline-block;
+  *display:inline; zoom:1;
+  vertical-align:top;
 }
