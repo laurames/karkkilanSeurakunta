@@ -69,7 +69,8 @@ function weeksEvents(){
         if(dataLenght != 0){
           for(i=0; i<dataLenght; i++){
             var eventData = filterData(resultData.results[i]);
-            $('#events').append(eventData);
+            $('#test').append(eventData);
+            $('#eventsHidden').append(eventData);
             cleanHTML();
           }
         }else {
@@ -81,20 +82,52 @@ function weeksEvents(){
       console.log("check the query request");
     }
   }
-
+  var pictures = [];
   function filterData(data){
-    //filter away the sharing links and images
+    //filter away the sharing links
     data = data.replace(/<div class="share"[^>]*>[\S\s]*?<\/div>/,'');
-    //get the index of the images that don't have their root path
-    var indexOfImage = data.indexOf('/seurakunta-theme');
-    var rootUrl = "http://www.karkkilanseurakunta.fi";
-    //place the root path into the string so that we have the images to display
-    var output = [data.slice(0, indexOfImage), rootUrl, data.slice(indexOfImage)].join('');
-    return output;
+    /*var numberOfString = (data.match(/seurakunta-theme/g) || []).length;
+    for(i = 1; i <= numberOfString; i++){
+      var char = '/seurakunta-theme';
+      var string = data;
+      function nth_occurrence (string, char, i) {
+          var first_index = string.indexOf(char);
+          var length_up_to_first_index = first_index + 1;
+
+          if (nth == 1) {
+              return first_index;
+          } else {
+              var string_after_first_occurrence = string.slice(length_up_to_first_index);
+              var next_occurrence = nth_occurrence(string_after_first_occurrence, char, nth - 1);
+
+              if (next_occurrence === -1) {
+                  return -1;
+              } else {
+                  return length_up_to_first_index + next_occurrence;
+              }
+          }
+      }
+
+      var rootUrl = "http://www.karkkilanseurakunta.fi";
+
+    }*/
+    return data;
   }
 
   function cleanHTML(){
-    $(".event-item-list a:first-child").remove();
+    $('.event-item-list a:first-child').remove();
+
+    $('.event-item-list').each(function(){
+      //var contentsH4 = $('#eventsHidden .event-item-list').find('h4').detach().html();
+      var eventDate = $('.event-date').detach().html();
+      var eventTime = $('.event-time').detach().html();
+      var eventName = $('[itemprop="name"]').detach().html();
+      var eventDescription = $('.description').detach().html();
+      var eventLocation = $('.event-location').detach().html();
+      if(eventName != undefined){
+        $('#events').append('<div class="singleEvent media">'+ '<div class="media-left media-middle"><a href="#"><img class="media-object" src="" alt=""></a></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime">' + eventTime + '</span></p><p class="eventDescription">Kuvaus: ' + eventDescription + '</p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
+      }
+    });
   }
 }
 /*

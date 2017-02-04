@@ -7,30 +7,53 @@ white = #FFFFFF;
 */
 
 /* Table of contents:
+0. Basic
 1. Event Structure
 2. Calendar
 
 */
 
-/* Event Structure */
-.event{
-  background-color: #eaeaea;
+/* Basic */
+header{
+  -moz-box-shadow: 0 20px 30px rgba(164, 9, 42, 0.4);
+  -webkit-box-shadow: 0 20px 30px rgba(164, 9, 42, 0.4);
+  box-shadow: 0 20px 30px rgba(164, 9, 42, 0.4);
+  /*box-shadow: 0 10px 20px -2px gray;*/
+  z-index: 2;
+  background-color: rgb(164, 9, 42);
 }
+
+/* Event Structure */
+#test{
+  background-color: yellow;
+}
+#eventsHidden{
+  display: none;
+}
+.event{
+  z-index: 1;
+}
+
 /* Calendar */
 .currentmonth {
-  color: blue;
+  color: white;
   text-align: center;
 }
+.weekdays{
+  color: white;
+}
 .currentday {
-  border: 1px solid black;
-  color: #00FF00;
+  border: 1px solid lightgray;
+  color: black;
+  background-color: white;
   text-align: center;
 }
 
 table.calendar {
-  margin:1em 1em 2em 1em;
+  padding:1em 1em 2em 1em;
 }
 table.calendar td, table.calendar th {
+  text-align: center;
   padding:0.5em;
 }
 table.calendar {

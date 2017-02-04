@@ -24,15 +24,20 @@
     <script src="js/calendar.js"></script>
   </head>
   <body>
+    <div class="container-fluid">
+      <header class="row">
+        <div class="col-md-4"><img src="img/logo.svg"></div>
+        <div id="calendar" class="col-md-8"></div>
+    	</header>
+      <div id="test"></div>
+      <div id="eventsHidden"></div>
+      <div id="events" class="col-md-12 event row">
 
-    <header>
-      <a href="#" class="navbar-left"><img src="img/logo.svg"></a>
-      <div id="calendar"></div>
-  	</header>
-    <div id="events" class=".col-md-12 event"></div>
-  	<footer>
-  		<p>Copyright &copy;<span class="year"></span> Karkkilan Seurakunta</p>
-  	</footer>
+      </div>
+    	<footer>
+    		<p>Copyright &copy;<span class="year"></span> Karkkilan Seurakunta</p>
+    	</footer>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

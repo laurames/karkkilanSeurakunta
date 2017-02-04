@@ -1,5 +1,8 @@
 (function () {
 
+  var current = new Date();
+  var cmonth = current.getMonth();
+
   function calendar(month) {
 
     //Variables to be used later.  Place holders right now.
@@ -8,8 +11,6 @@
     var i = 1;
     var testing = "";
 
-    var current = new Date();
-    var cmonth = current.getMonth();
     var day = current.getDate();
     var year = current.getFullYear();
     var tempMonth = month + 1; //+1; //Used to match up the current month with the correct start date.
@@ -84,10 +85,9 @@
       //////////////////////////////////////////////////////////////////////////////////////////////////
 
       if (i == day && month == cmonth) {
-        padding += "<td class='currentday'  onMouseOver='this.style.background=\"#00FF00\"; this.style.color=\"#FFFFFF\"' onMouseOut='this.style.background=\"#FFFFFF\"; this.style.color=\"#00FF00\"'>" + i + "</td>";
+        padding += "<td class='currentday'>" + i + "</td>";
       } else {
-        padding += "<td class='currentmonth' onMouseOver='this.style.background=\"#00FF00\"' onMouseOut='this.style.background=\"#FFFFFF\"'>" + i + "</td>";
-
+        padding += "<td class='currentmonth'>" + i + "</td>";
       }
 
       tempweekday2++;
@@ -102,23 +102,21 @@
     /////////////////////////////////////////
 
     var calendarTable = "<table class='calendar'> <tr class='currentmonth'><th colspan='7'>" + monthNames[month] + " " + year + "</th></tr>";
-    calendarTable += "<tr class='weekdays'>  <td>Sun</td>  <td>Mon</td> <td>Tues</td> <td>Wed</td> <td>Thurs</td> <td>Fri</td> <td>Sat</td> </tr>";
+    calendarTable += "<tr class='weekdays'>  <td>Su</td>  <td>Ma</td> <td>Ti</td> <td>Ke</td> <td>To</td> <td>Pe</td> <td>La</td> </tr>";
     calendarTable += "<tr>";
     calendarTable += padding;
     calendarTable += "</tr></table>";
     document.getElementById("calendar").innerHTML += calendarTable;
   }
 
-  function go12() {
-    for (i = 0; i < 12; i++) {
-      calendar(i);
-    }
+  function thisMonthCalendar() {
+    calendar(cmonth);
   }
 
   if (window.addEventListener) {
-    window.addEventListener('load', go12, false);
+    window.addEventListener('load', thisMonthCalendar, false);
   } else if (window.attachEvent) {
-    window.attachEvent('onload', go12);
+    window.attachEvent('onload', thisMonthCalendar);
   }
 
 })();
