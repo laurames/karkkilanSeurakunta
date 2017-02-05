@@ -10,6 +10,7 @@ example URL format for events is: "www.karkkilanseurakunta.fi/tapahtumat/-/haku/
 
 example Query URL format: www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F11%2F7%2F2016%2F_%2F17%2F7%2F2016 %2Fweek%2F1%23events
 */
+
 function weeksEvents(){
   todaysDates();
   //The current dates for today:
@@ -52,11 +53,30 @@ function weeksEvents(){
   }
 
   function buildQueryString(startOfWeek, endOfWeek){
+    //check how many pages:
+    //select * from html where url="www.karkkilanseurakunta.fi/tapahtumat/-/haku/0/6/2/2017/_/12/2/2017/week/2#events" and xpath='//ul[@class="pagination"]/li'
+    var queryPages = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F" + startOfWeek + "%2F_%2F" + endOfWeek + "%2Fweek%2F2%23events%22%20and%20xpath%3D'%2F%2Ful%5B%40class%3D%22pagination%22%5D%2Fli'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+    var pages = findPages(queryPages);
     //the query:
-    var requestQuery = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F" + startOfWeek + "%2F_%2F" + endOfWeek + "%2Fweek%2F1%23events%22%20and%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22event-list-wrapper%22%5D%2Fdiv%5Bcontains(%40class%2C%20%22event-item-list%22)%5D'&format=xml&callback=?"
+    var requestQuery = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F" + startOfWeek + "%2F_%2F" + endOfWeek + "%2Fweek%2F" + pages + "%23events%22%20and%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22event-list-wrapper%22%5D%2Fdiv%5Bcontains(%40class%2C%20%22event-item-list%22)%5D'&format=xml&callback=?"
     console.log(requestQuery);
     doAjax(requestQuery);
   }
+
+  function findPages(queryPages){
+    if(queryPages.match('^http')){
+      $.getJSON(queryPages, function(data){
+        var result = data;
+        var numberOfPages = result.query.count;
+        console.log('pages: '+numberOfPages);
+        if(numberOfPages < 2){
+          return numberOfPages-2;
+        }else{ return 1; }
+      });
+    }else {
+      console.log("check the query request");
+    }
+  };
 
   function doAjax(requestQuery){
     var resultData;
@@ -80,7 +100,8 @@ function weeksEvents(){
     }else {
       console.log("check the query request");
     }
-  }
+  };
+
   var pictures = [];
   function filterData(data){
     //filter away the sharing links
@@ -113,12 +134,12 @@ function weeksEvents(){
           case 'Perjantaikahvila': return 'kahvi';
           case 'Jobbis': return 'jobbis';
           case 'Iltamessu': return 'iltamessu';
-          case eventName.match(/Sähly/g): return 'sahly'
+          case (eventName.indexOf('Sähly')>-1): return 'sahly'
           default: return 'logo'
         }
       }
       if(eventName != undefined){
-        $('#events').append('<div class="singleEvent media col-md-4 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription">Kuvaus: <span>' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
+        $('#events').append('<div class="singleEvent media col-md-3 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription">Kuvaus: <span>' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
       }
     });
   }
