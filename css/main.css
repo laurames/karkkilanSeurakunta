@@ -56,6 +56,15 @@ footer{
   color: white;
   background-color: #a4092a;
 }
+.event p{
+  font-size: 1.2em;
+}
+.event h1{
+  font-size: 2em;
+}
+.singleEvent{
+  min-height: 220px;
+}
 .row-centered{
   text-align:center;
 }
@@ -93,6 +102,7 @@ footer{
   font-weight: normal;
 }
 .img-circle{
+  margin: 0 1em;
   border: gray 2px solid;
 }
 
