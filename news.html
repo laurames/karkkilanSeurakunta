@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="venders/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="venders/flipClock/flipclock.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -19,15 +20,16 @@
     <![endif]-->
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
-    <script src="js/parseHtml.js"></script>
-    <script src="js/calendar.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/parseHtml.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
   </head>
   <body>
     <div class="container-fluid">
       <header class="row">
-        <div class="col-md-2 logo"><img src="img/logo.svg"/></div>
-        <div id="calendar" class="col-md-offset-6 col-md-4"></div>
+        <div class="col-md-3 logo"><img src="img/logo.svg"/></div>
+        <div class="col-md-offset-1 col-md-4 clock"></div>
+        <div id="calendar" class=" col-md-4"></div>
     	</header>
       <div id="eventsHidden"></div>
       <div id="events" class="event row row-centered"></div>
@@ -37,8 +39,9 @@
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="venders/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="venders/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="venders/flipClock/flipclock.min.js"></script>
   </body>
 </html>

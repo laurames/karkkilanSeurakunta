@@ -86,34 +86,6 @@ function weeksEvents(){
     //filter away the sharing links
     data = data.replace(/<div class="share"[^>]*>[\S\s]*?<\/div>/,'');
     data = data.replace(/<img[^>]+src="([^">]+)/g,'')
-
-    /*var numberOfString = (data.match(/\/seurakunta-theme/g) || []).length;
-    console.log('number of strings: ' + numberOfString);
-    for(i = 1; i <= numberOfString; i++){
-      var char = '/seurakunta-theme';
-      var string = data;
-      function nth_occurrence (string, char, i) {
-        var first_index = string.indexOf(char);
-        var length_up_to_first_index = first_index + 1;
-
-        if (nth == 1) {
-          return first_index;
-        } else {
-          var string_after_first_occurrence = string.slice(length_up_to_first_index);
-          var next_occurrence = nth_occurrence(string_after_first_occurrence, char, nth - 1);
-
-          if (next_occurrence === -1) {
-            return -1;
-          } else {
-            return length_up_to_first_index + next_occurrence;
-          }
-        }
-      }
-      var rootUrl = "http://www.karkkilanseurakunta.fi";
-      var pictureSrc = rootUrl+data.slice(nth_occurrence(i),data.indexOf("-small.png"));
-      console.log(pictureSrc);
-
-    }*/
     return data;
   }
 
@@ -127,8 +99,26 @@ function weeksEvents(){
       var eventName = $('[itemprop="name"]').detach().html();
       var eventDescription = $('.description').detach().html();
       var eventLocation = $('.event-location').detach().html();
+      function image(eventName){
+        switch(eventName){
+          case 'Perhemessu': return 'kirkko';
+          case 'Naistenpiiri': return 'naisten';
+          case 'Raamattupiiri': return 'raamattupiiri';
+          case 'Perhekerho': return 'perhekerho';
+          case 'Puuhakerho': return 'puuhakerho';
+          case 'Juttutupa': return 'juttutupa'
+          case 'KEKE- Keskiviikkokerho': return 'keke';
+          case 'Kokkikerho': return 'kokkikerho';
+          case 'Avoin Ikkuna': return 'ikkuna';
+          case 'Perjantaikahvila': return 'kahvi';
+          case 'Jobbis': return 'jobbis';
+          case 'Iltamessu': return 'iltamessu';
+          case eventName.match(/Sähly/g): return 'sahly'
+          default: return 'logo'
+        }
+      }
       if(eventName != undefined){
-        $('#events').append('<div class="singleEvent media col-md-4 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="images/text.svg" alt=""></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime">' + eventTime + '</span></p><p class="eventDescription">Kuvaus: ' + eventDescription + '</p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
+        $('#events').append('<div class="singleEvent media col-md-4 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body"><h4 class="media-heading"><span class="eventName">' + eventName + '</span></h4><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription">Kuvaus: <span>' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
       }
     });
   }
