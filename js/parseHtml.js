@@ -35,13 +35,13 @@ function weeksEvents(){
     }
     if(dayOfTheWeek === 1){
       dayOffset = daysToOffsetBy(7);
-      startOfWeek = '06%2F2%2F2017';
+      startOfWeek = '6%2F2%2F2017';
       endOfWeek = '12%2F2%2F2017';
       //startOfWeek = day + '%2F' + month + '%2F' + year;
       //endOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
     }else if(dayOfTheWeek === 0){
       dayOffset = daysToOffsetBy(-7);
-      startOfWeek = '06%2F2%2F2017';
+      startOfWeek = '6%2F2%2F2017';
       endOfWeek = '12%2F2%2F2017';
       //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
       //endOfWeek = day + '%2F' + month + '%2F' + year;
@@ -50,7 +50,7 @@ function weeksEvents(){
       var fromSunday = 7-dayOfTheWeek; //positive number
       dayOffset = daysToOffsetBy(fromMonday);
       var dayOffsetSunday = daysToOffsetBy(fromSunday);
-      startOfWeek = '06%2F2%2F2017';
+      startOfWeek = '6%2F2%2F2017';
       endOfWeek = '12%2F2%2F2017';
       //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
       //endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
@@ -62,31 +62,35 @@ function weeksEvents(){
   function buildQueryString(startOfWeek, endOfWeek, pages){
     //the query:
     for(i=1; i<=pages; i++){
-      var requestQuery = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F" + startOfWeek + "%2F_%2F" + endOfWeek + "%2Fweek%2F"+ i +"%23events%22%20and%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22event-list-wrapper%22%5D%2Fdiv%5Bcontains(%40class%2C%20%22event-item-list%22)%5D'&format=xml&callback=?"
+      var requestQuery = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F" + startOfWeek + "%2F_%2F" + endOfWeek + "%2Fweek%2F" + i + "%23events%22%20and%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22event-list-wrapper%22%5D%2Fdiv%5Bcontains(%40class%2C%20%22event-item-list%22)%5D'&format=xml&callback=?"
+
       doAjax(requestQuery);
     }
   }
 
   function doAjax(requestQuery){
-    var resultData;
-    var dataLenght;
-
     if(requestQuery.match('^http')){
-      $.getJSON(requestQuery, function(data){
-        resultData = data;
-        dataLenght = resultData.results.length;
-        if(dataLenght != 0){
-          for(i=0; i<dataLenght; i++){
-            var eventData = filterData(resultData.results[i]);
-            $('#eventsHidden').append(eventData);
-            cleanHTML();
+      $.ajax({
+        async: false,
+        dataType: 'json',
+        url: requestQuery,
+        success: function(data){
+          console.log('data is: '+ JSON.stringify(data));
+          var resultData = data;
+          var dataLenght = resultData.results.length;
+          if(dataLenght != 0){
+            for(i=0; i<dataLenght; i++){
+              var eventData = filterData(resultData.results[i]);
+              $('#eventsHidden').append(eventData);
+              cleanHTML();
+            }
+          }else{
+            var errormsg = '<p class="error">Error: could not load the page.</p>';
+            $('#events').append(errormsg);
           }
-        }else {
-          var errormsg = '<p class="error">Error: could not load the page.</p>';
-          $('#events').append(errormsg);
         }
       });
-    }else {
+    }else{
       console.log("check the query request");
     }
   };
@@ -98,19 +102,19 @@ function weeksEvents(){
 
     if(queryPages.match('^http')){
       $.ajax({
-          async: false,
-          url: queryPages,
-          success: function(data) {
-            var result = data;
-            var numberOfPages = result.query.count;
-            if(numberOfPages > 0){
-              pages = numberOfPages-2;
-              return pages;
-            }else{
-              pages= 1;
-              return pages;
-            }
+        async: false,
+        url: queryPages,
+        success: function(data) {
+          var result = data;
+          var numberOfPages = result.query.count;
+          if(numberOfPages > 0){
+            pages = numberOfPages-2;
+            return pages;
+          }else{
+            pages= 1;
+            return pages;
           }
+        }
       });
       buildQueryString(startOfWeek, endOfWeek, pages);
     }else {
