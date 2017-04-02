@@ -189,41 +189,38 @@ function weeksEvents(){
   }
 
   function displayScreenLoop(){
+    var elemNum = $('#eventTiles .singleEvent').length;
+    var runTimes = 0;
     $( document ).ready(function() {
-    //$('#button').click(function() {}
+      runTimes = 1;
+      setTimeout(slideshowLoop, 3000 * elemNum);
+    });
+
+    function slideshowLoop(){
       $('#eventTiles .singleEvent').each(function(i) {
         var $div = $(this);
         setTimeout(function() {
-          $div.addClass('grow').delay(10000).queue(function(next){
-              $(this).removeClass('grow'); //.addClass('shrink')
-              next();
+          $div.addClass('grow').delay(1000).queue(function(next){
+            $(this).addClass('shrink');
+            next();
           });
-        }, 11000 * i);
+        }, 2000 * i);
       });
-    });
-  }
+      //setTimeout(showAll, 1000 * elemNum);
+    }
 
-/*
-  function createEventsInSlideShow(eventDate, eventTime, eventName, eventDescription, eventLocation){
-    if(eventName != undefined){
-      $('#slideshow').append('<div class="slide media col-md-3 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body"><h1 class="media-heading"><span class="eventName">' + eventName + '</span></h1><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription">Kuvaus: <span>' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
+    function showAll(){
+      if(runTimes > 0){
+        $('#eventTiles .singleEvent').removeClass('grow shrink');
+      }
+      slideshowLoop();
     }
   }
 
-  function showSlides() {
-      var i;
-      var slides = document.getElementsByClassName("mySlides");
-      var dots = document.getElementsByClassName("dot");
-      for (i = 0; i < slides.length; i++) {
-         slides[i].style.display = "none";
-      }
-      slideIndex++;
-      if (slideIndex> slides.length) {slideIndex = 1}
-      for (i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex-1].style.display = "block";
-      dots[slideIndex-1].className += " active";
-      setTimeout(showSlides, 2000); // Change image every 2 seconds
-  }*/
 }
+/*
+.delay(10000).queue(function(next){
+  $('#eventTiles .singleEvent').removeClass('grow shrink');
+  next();
+});
+*/

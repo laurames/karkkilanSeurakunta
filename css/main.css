@@ -155,7 +155,7 @@ table.calendar {
   top: 0;
   left: 0;
   margin: 0 !important;
-  opacity: 0.9;
+  opacity: 0.95;
   animation-name: grow;
   animation-duration: 500ms;
   animation-timing-function: ease-out;
@@ -165,7 +165,20 @@ table.calendar {
   animation-fill-mode: forwards;
   animation-play-state: running;
 }
-
+.singleEvent.grow{
+  display: block;
+  margin: auto !important;
+  text-align: center;
+  padding-top: 5%;
+}
+.singleEvent.grow > .media-left.media-middle{
+  display: block;
+}
+.singleEvent.grow > .media-left.media-middle > .media-object{
+  display: inline;
+  max-width: 20em;
+  margin-bottom: 1em;
+}
 @keyframes grow {
   0% {
     transform: scale(0);
