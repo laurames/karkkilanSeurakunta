@@ -16,6 +16,7 @@ function weeksEvents(){
   todaysDates();
   var resultData = []; //all event data in array with objects
   var pages; //number of pages
+  var timeInterval = 0;
 
   //The current dates for today:
   function todaysDates(){
@@ -108,14 +109,14 @@ function weeksEvents(){
         url: requestQuery,
         success: function(data){
           activeAjaxConnections--;
-          console.log("i is: "+i);
           var pageNum = i;
+          var numberOfdataEements = 0;
           resultData[i-1] = data;
-          console.log(resultData);
+
           if (0 == activeAjaxConnections) {
-            console.log("i am here and activeAjaxConnections = " + activeAjaxConnections);
             for(i=0; i<resultData.length; i++){
               var dataLenght = resultData[i].results.length;
+              numberOfdataEements = numberOfdataEements + dataLenght;
               if(dataLenght != 0){
                 for(y=0; y<dataLenght; y++){
                   var eventData = filterData(resultData[i].results[y]);
@@ -127,6 +128,9 @@ function weeksEvents(){
                 $('#eventTiles').append(errormsg);
               }
             }
+            timeInterval = 4000 * numberOfdataEements;
+            console.log("time interval is in ajax: " + timeInterval);
+            displayScreenLoop();
           }
         }
       });
@@ -156,7 +160,7 @@ function weeksEvents(){
       //createEventsInSlideShow(eventDate, eventTime, eventName, eventDescription, eventLocation);
       createEventsInTiles(eventDate, eventTime, eventName, eventDescription, eventLocation);
     });
-    displayScreenLoop();
+    //displayScreenLoop();
   }
 
   function image(eventName){
@@ -187,37 +191,51 @@ function weeksEvents(){
       $('#eventTiles').append('<div class="singleEvent media col-md-3 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body"><h1 class="media-heading"><span class="eventName">' + eventName + '</span></h1><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription">Kuvaus: <span>' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
     }
   }
-
   function displayScreenLoop(){
-    var elemNum = $('#eventTiles .singleEvent').length;
-    var runTimes = 0;
-    $( document ).ready(function() {
-      runTimes = 1;
-      setTimeout(slideshowLoop, 3000 * elemNum);
-    });
+    setInterval(function(){
+      console.log("time interval is : " + timeInterval);
+      slideshowLoop();
+    }, timeInterval);
 
     function slideshowLoop(){
-      $('#eventTiles .singleEvent').each(function(i) {
+      $('#eventTiles .singleEvent').each(function(index) {
         var $div = $(this);
         setTimeout(function() {
           $div.addClass('grow').delay(1000).queue(function(next){
-            $(this).addClass('shrink');
+            $div.addClass('shrink').delay(1000).queue(function(next){
+              $div.removeClass('grow shrink');
+              next();
+            });
             next();
           });
-        }, 2000 * i);
+        }, 3000 * index);
       });
-      //setTimeout(showAll, 1000 * elemNum);
-    }
-
-    function showAll(){
-      if(runTimes > 0){
-        $('#eventTiles .singleEvent').removeClass('grow shrink');
-      }
-      slideshowLoop();
     }
   }
 
 }
+
+/*
+for(i=0; i<elemNum; i++){
+  setTimeout(function() {
+    elemArray[i].addClass('grow').delay(1000).queue(function(next){
+      elemArray[i].removeClass('grow').addClass('shrink');
+      next();
+    });
+  }, 2000 * i);
+}
+
+$('#eventTiles .singleEvent').each(function(i) {
+  var $div = $(this);
+  setTimeout(function() {
+    $div.addClass('grow').delay(1000).queue(function(next){
+      $div.removeClass('grow').addClass('shrink');
+      next();
+    });
+  }, 2000 * i);
+});
+*/
+
 /*
 .delay(10000).queue(function(next){
   $('#eventTiles .singleEvent').removeClass('grow shrink');

@@ -140,13 +140,6 @@ table.calendar {
 }
 
 /*Animations*/
-.singleEventAnim{
-  display: none;
-  animation: shrink 0.7s;
-  animation-fill-mode: forwards;
-  -webkit-animation: shrink 0.7s;
-  -webkit-animation-fill-mode: forwards;
-}
 .grow{
   z-index: 9999;
   width: 100%;
@@ -205,32 +198,4 @@ table.calendar {
   100% {
     transform: scale(0);
   }
-}
-
-/* Effects */
-.overlay-scale {
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transform: scale(0.9);
-	transform: scale(0.9);
-	-webkit-transition: -webkit-transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
-	transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
-}
-
-.overlay-scale.open {
-	visibility: visible;
-	opacity: 1;
-	-webkit-transform: scale(1);
-	transform: scale(1);
-	-webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
-	transition: transform 0.4s, opacity 0.4s;
-}
-
-/*Slideshow Structure*/
-.slideshow-container{
-  background-color: #a4092a;
-  display: none;
-}
-.slide{
-  border: red 2px solid;
 }
