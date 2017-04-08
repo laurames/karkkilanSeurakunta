@@ -39,25 +39,25 @@ function weeksEvents(){
     }
     if(dayOfTheWeek === 1){
       dayOffset = daysToOffsetBy(7);
-      startOfWeek = '3%2F4%2F2017';
-      endOfWeek = '9%2F4%2F2017';
-      //startOfWeek = day + '%2F' + month + '%2F' + year;
-      //endOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      //startOfWeek = '3%2F4%2F2017';
+      //endOfWeek = '9%2F4%2F2017';
+      startOfWeek = day + '%2F' + month + '%2F' + year;
+      endOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
     }else if(dayOfTheWeek === 0){
       dayOffset = daysToOffsetBy(-7);
-      startOfWeek = '3%2F4%2F2017';
-      endOfWeek = '9%2F4%2F2017';
-      //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
-      //endOfWeek = day + '%2F' + month + '%2F' + year;
+      //startOfWeek = '3%2F4%2F2017';
+      //endOfWeek = '9%2F4%2F2017';
+      startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      endOfWeek = day + '%2F' + month + '%2F' + year;
     }else{
       var fromMonday = 1-dayOfTheWeek; //negative number
       var fromSunday = 7-dayOfTheWeek; //positive number
       dayOffset = daysToOffsetBy(fromMonday);
       var dayOffsetSunday = daysToOffsetBy(fromSunday);
-      startOfWeek = '3%2F4%2F2017';
-      endOfWeek = '9%2F4%2F2017';
-      //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
-      //endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
+      //startOfWeek = '3%2F4%2F2017';
+      //endOfWeek = '9%2F4%2F2017';
+      startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
     }
     findPages();
   }
@@ -124,13 +124,13 @@ function weeksEvents(){
                   cleanHTML();
                 }
               }else{
-                var errormsg = '<p class="error">Error: could not load the page.</p>';
+                var errormsg = '<p class="error">Tälle viikolle ei ole enää tapahtumia</p>';
                 $('#eventTiles').append(errormsg);
               }
             }
-            timeInterval = 4000 * numberOfdataEements;
-            console.log("time interval is in ajax: " + timeInterval);
-            displayScreenLoop();
+            timeInterval = 5000 * numberOfdataEements;
+            //console.log("time interval is in ajax: " + timeInterval);
+            //displayScreenLoop();
           }
         }
       });
@@ -160,7 +160,6 @@ function weeksEvents(){
       //createEventsInSlideShow(eventDate, eventTime, eventName, eventDescription, eventLocation);
       createEventsInTiles(eventDate, eventTime, eventName, eventDescription, eventLocation);
     });
-    //displayScreenLoop();
   }
 
   function image(eventName){
@@ -188,8 +187,8 @@ function weeksEvents(){
 
   function createEventsInTiles(eventDate, eventTime, eventName, eventDescription, eventLocation){
     if(eventName != undefined){
-      $('#eventTiles').append('<div class="singleEvent media col-md-3 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body"><h1 class="media-heading"><span class="eventName">' + eventName + '</span></h1><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription">Kuvaus: <span>' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
-    }
+      $('#eventTiles').append('<div class="singleEvent media col-md-3 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body media-right"><h1 class="media-heading">' + eventName + '</h1><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription moreText">Kuvaus: <span class="truncate">' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
+    }//<span class="eventName"></span>
   }
   function displayScreenLoop(){
     setInterval(function(){
@@ -201,44 +200,16 @@ function weeksEvents(){
       $('#eventTiles .singleEvent').each(function(index) {
         var $div = $(this);
         setTimeout(function() {
-          $div.addClass('grow').delay(1000).queue(function(next){
+          $div.addClass('grow').delay(10000).queue(function(next){
             $div.addClass('shrink').delay(1000).queue(function(next){
               $div.removeClass('grow shrink');
               next();
             });
             next();
           });
-        }, 3000 * index);
+        }, 11000 * index);
       });
     }
   }
 
 }
-
-/*
-for(i=0; i<elemNum; i++){
-  setTimeout(function() {
-    elemArray[i].addClass('grow').delay(1000).queue(function(next){
-      elemArray[i].removeClass('grow').addClass('shrink');
-      next();
-    });
-  }, 2000 * i);
-}
-
-$('#eventTiles .singleEvent').each(function(i) {
-  var $div = $(this);
-  setTimeout(function() {
-    $div.addClass('grow').delay(1000).queue(function(next){
-      $div.removeClass('grow').addClass('shrink');
-      next();
-    });
-  }, 2000 * i);
-});
-*/
-
-/*
-.delay(10000).queue(function(next){
-  $('#eventTiles .singleEvent').removeClass('grow shrink');
-  next();
-});
-*/
