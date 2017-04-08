@@ -73,9 +73,12 @@ footer{
 .events p{
   font-size: 1.2em;
   margin: 0 0 5px;
+  line-height: 1.2em;
+  height: 2.4em;
+  overflow: hidden;
 }
 .events h1{
-  font-size: 2em;
+  font-size: 1.8em;
 }
 .singleEvent{
   min-height: 200px;
@@ -122,7 +125,8 @@ h1.media-heading{
 .media-right{
   width: 59%;
   word-wrap: break-word;
-  max-height: inherit;
+  max-height: 180px;
+  overflow: hidden;
 }
 .eventDate{
   text-transform: uppercase;
@@ -191,10 +195,24 @@ table.calendar {
   display: block;
   margin: auto !important;
   text-align: center;
-  padding-top: 5%;
+  padding-top: 3%;
+}
+.singleEvent.grow p{
+  height: auto;
+  overflow: visible;
 }
 .singleEvent.grow > .media-left.media-middle{
   display: block;
+  text-align: center;
+  margin: 0;
+  width: 100% !important;
+}
+.singleEvent.grow > .media-body{
+  overflow: visible;
+}
+.singleEvent.grow > .media-right{
+  font-size: 1.5em;
+  height: auto;
 }
 .singleEvent.grow > .media-left.media-middle > .media-object{
   display: inline;

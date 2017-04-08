@@ -39,25 +39,25 @@ function weeksEvents(){
     }
     if(dayOfTheWeek === 1){
       dayOffset = daysToOffsetBy(7);
-      //startOfWeek = '3%2F4%2F2017';
-      //endOfWeek = '9%2F4%2F2017';
-      startOfWeek = day + '%2F' + month + '%2F' + year;
-      endOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      startOfWeek = '10%2F4%2F2017';
+      endOfWeek = '16%2F4%2F2017';
+      //startOfWeek = day + '%2F' + month + '%2F' + year;
+      //endOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
     }else if(dayOfTheWeek === 0){
       dayOffset = daysToOffsetBy(-7);
-      //startOfWeek = '3%2F4%2F2017';
-      //endOfWeek = '9%2F4%2F2017';
-      startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
-      endOfWeek = day + '%2F' + month + '%2F' + year;
+      startOfWeek = '10%2F4%2F2017';
+      endOfWeek = '16%2F4%2F2017';
+      //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      //endOfWeek = day + '%2F' + month + '%2F' + year;
     }else{
       var fromMonday = 1-dayOfTheWeek; //negative number
       var fromSunday = 7-dayOfTheWeek; //positive number
       dayOffset = daysToOffsetBy(fromMonday);
       var dayOffsetSunday = daysToOffsetBy(fromSunday);
-      //startOfWeek = '3%2F4%2F2017';
-      //endOfWeek = '9%2F4%2F2017';
-      startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
-      endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
+      startOfWeek = '10%2F4%2F2017';
+      endOfWeek = '16%2F4%2F2017';
+      //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      //endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
     }
     findPages();
   }
@@ -128,9 +128,9 @@ function weeksEvents(){
                 $('#eventTiles').append(errormsg);
               }
             }
-            timeInterval = 5000 * numberOfdataEements;
+            timeInterval = 14000 * numberOfdataEements;
             //console.log("time interval is in ajax: " + timeInterval);
-            //displayScreenLoop();
+            displayScreenLoop();
           }
         }
       });
@@ -188,7 +188,7 @@ function weeksEvents(){
   function createEventsInTiles(eventDate, eventTime, eventName, eventDescription, eventLocation){
     if(eventName != undefined){
       $('#eventTiles').append('<div class="singleEvent media col-md-3 col-centered">'+ '<div class="media-left media-middle"><img class="media-object img-circle" src="img/' + image(eventName) + '.png" alt=""></div><div class="media-body media-right"><h1 class="media-heading">' + eventName + '</h1><p class="timeDate"><span class="eventDate">' + eventDate + '</span><span class="eventTime"> Kello: ' + eventTime + '</span></p><p class="eventDescription moreText">Kuvaus: <span class="truncate">' + eventDescription + '</span></p><p class="eventLocation">Paikka: ' + eventLocation + '</div></div>');
-    }//<span class="eventName"></span>
+    }
   }
   function displayScreenLoop(){
     setInterval(function(){
@@ -196,6 +196,13 @@ function weeksEvents(){
       slideshowLoop();
     }, timeInterval);
 
+    function timeBetweenSlides(timeInterval){
+      if((timeInterval - (11000 * resultData[i].results.length)) / 60000 < 1){
+        return timeInterval = 60000;
+      }else{
+        return timeInterval;
+      }
+    }
     function slideshowLoop(){
       $('#eventTiles .singleEvent').each(function(index) {
         var $div = $(this);
