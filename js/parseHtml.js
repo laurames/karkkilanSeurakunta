@@ -38,34 +38,34 @@ function weeksEvents(){
       return newToday;
     }
     if(dayOfTheWeek === 1){
-      dayOffset = daysToOffsetBy(7);
-      startOfWeek = '10%2F4%2F2017';
-      endOfWeek = '16%2F4%2F2017';
-      //startOfWeek = day + '%2F' + month + '%2F' + year;
-      //endOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      dayOffset = daysToOffsetBy(10);
+      //startOfWeek = '10%2F4%2F2017';
+      //endOfWeek = '16%2F4%2F2017';
+      startOfWeek = day + '%2F' + month + '%2F' + year;
+      endOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
     }else if(dayOfTheWeek === 0){
-      dayOffset = daysToOffsetBy(-7);
-      startOfWeek = '10%2F4%2F2017';
-      endOfWeek = '16%2F4%2F2017';
-      //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
-      //endOfWeek = day + '%2F' + month + '%2F' + year;
+      dayOffset = daysToOffsetBy(-10);
+      //startOfWeek = '10%2F4%2F2017';
+      //endOfWeek = '19%2F4%2F2017';
+      startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      endOfWeek = day + '%2F' + month + '%2F' + year;
     }else{
       var fromMonday = 1-dayOfTheWeek; //negative number
-      var fromSunday = 7-dayOfTheWeek; //positive number
+      var fromSunday = 10-dayOfTheWeek; //positive number
       dayOffset = daysToOffsetBy(fromMonday);
       var dayOffsetSunday = daysToOffsetBy(fromSunday);
-      startOfWeek = '10%2F4%2F2017';
-      endOfWeek = '16%2F4%2F2017';
-      //startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
-      //endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
+      //startOfWeek = '10%2F4%2F2017';
+      //endOfWeek = '19%2F4%2F2017';
+      startOfWeek = dayOffset.getDate() + '%2F' + (dayOffset.getMonth()+1) + '%2F' + dayOffset.getFullYear();
+      endOfWeek = dayOffsetSunday.getDate() + '%2F' + (dayOffsetSunday.getMonth()+1) + '%2F' + dayOffsetSunday.getFullYear();
     }
     findPages();
   }
 
   function findPages(){
     //check how many pages:
-    //select * from html where url="www.karkkilanseurakunta.fi/tapahtumat/-/haku/0/29/1/2017/_/5/2/2017/week/2#events" and xpath='//ul[@class="pagination"]/li'
-    var queryPages = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F" + startOfWeek + "%2F_%2F" + endOfWeek + "%2Fweek%2F2%23events%22%20and%20xpath%3D'%2F%2Ful%5B%40class%3D%22pagination%22%5D%2Fli'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+    //select * from html where url="www.karkkilanseurakunta.fi/tapahtumat/-/haku/0/10/4/2017/_/19/4/2017/month/3#events" and xpath='//ul[@class="pagination"]/li'
+    var queryPages = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22www.karkkilanseurakunta.fi%2Ftapahtumat%2F-%2Fhaku%2F0%2F" + startOfWeek + "%2F_%2F" + endOfWeek + "%2Fmonth%2F%22%20and%20xpath%3D'%2F%2Ful%5B%40class%3D%22pagination%22%5D%2Fli'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
 
     if(queryPages.match('^http')){
       $.ajax({
@@ -196,13 +196,17 @@ function weeksEvents(){
       slideshowLoop();
     }, timeInterval);
 
+    /*Not yet working but would like to add into future update
     function timeBetweenSlides(timeInterval){
-      if((timeInterval - (11000 * resultData[i].results.length)) / 60000 < 1){
-        return timeInterval = 60000;
+      var timeIntervalSubtraction = (timeInterval - (11000 * resultData[i].results.length));
+      if( (timeIntervalSubtraction / 60000) < 0.5){
+        return timeInterval = timeInterval + (60000 - timeIntervalSubtraction);
       }else{
         return timeInterval;
       }
     }
+    */
+
     function slideshowLoop(){
       $('#eventTiles .singleEvent').each(function(index) {
         var $div = $(this);
